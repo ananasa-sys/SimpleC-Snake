@@ -4,32 +4,36 @@
 #include "utilities.h"
 #include "renderer.h"
 #include "object_manager.h"
-
+// Команды платформы
+//@brief структура кнопки и ее состояние
 struct Input;
 
 struct ButtonState {
-	bool is_down = false;
+	bool is_down = false; 
 	bool changed = false;
 };
 
-enum { // holds every button action in the game
+// показывает действия кнопки в игре
+enum { 
 	BUTTON_MOVEUP,
 	BUTTON_MOVEDOWN,
 	BUTTON_MOVELEFT,
 	BUTTON_MOVERIGHT,
 
-	// how many buttons actions there are in total
+	// счетчик действий кнопки
 	BUTTON_COUNT 
 };
 
+// игра пользователя
 struct Input {
 	std::array<ButtonState, BUTTON_COUNT> buttons;
 };
-
+// получение состояния кнопки и проверка на нажатие клавиш
 void getKeyStates(uint32& vk_code, bool& is_down, HWND* window);
 void inputProcessing(uint32 vk_code, bool is_down);
-void updateVelocityFromInputs(PlayerObject& player);
+void updateVelocityFromInputs(PlayerObject& player); // увеличивает скорость игрока с каждым движением
 
+// хранение ввода данных
 extern Input inputs;
 
 #endif
