@@ -1,5 +1,9 @@
 #include "renderer.h"
 
+/**
+* Глобальные переменные
+*/
+
 extern float widthPercent = 0;
 extern float heightPercent = 0;
 extern float startXPercent = 0;
@@ -7,6 +11,10 @@ extern float startYPercent = 0;
 
 extern int rendererMin = 0;
 extern int rendererMax = 0;
+
+/**
+* @brief Отрисовка заднего фона и границ поля
+*/
 
 void renderBackground() {
 	// Tilemap Border
@@ -18,6 +26,11 @@ void renderBackground() {
 	// Game Header Bar
 	drawRectInPercent(0.0f, 95.0f, 100.0f, 100.0f, DARKESTGREEN);
 }
+
+/**
+* @brief Пересчет размеров и отступов
+*/
+
 
 void updateVars() {
 	rendererMin = min(renderer.width, renderer.height);
@@ -48,6 +61,11 @@ void updateVars() {
 	startYPercent = ((startYPercent * rendererMin) / renderer.height) + 2.5f;
 }
 
+/**
+* @brief Отрисовка игрового поля
+* @param tilemap двумерный массив с ячейками
+*/
+
 void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& tilemap) {
 	for (int i = 0; i < tilemapSizeX; i++) {
 		for (int j = 0; j < tilemapSizeY; j++) {
@@ -59,6 +77,11 @@ void renderTilemap(std::array<std::array<uint32, tilemapSizeY>, tilemapSizeX>& t
 		}
 	}
 }
+
+/**
+* @brief Вывод счетчика
+* @param score количество очков
+*/
 
 void renderScore(HWND* hWnd, int score) {
 	std::string scoreStr = std::to_string(score);
@@ -78,6 +101,10 @@ void renderScore(HWND* hWnd, int score) {
 				  *hWnd, NULL, NULL, NULL);
 }
 
+/**
+* @brief Чистка экрана
+*/
+
 void clearScreen(uint32 color) {
 	uint32* pixel = static_cast<uint32*>(renderer.memory);
 	for (int x = 0; x < renderer.width; x++) {
@@ -86,6 +113,10 @@ void clearScreen(uint32 color) {
 		}
 	}
 }
+
+/**
+* @brief Отрисовка прямоугольника с использованием координат пикселей
+*/
 
 void drawRectInPixels(int x0, int y0, int x1, int y1, uint32 color) {
 	x0 = clamp(0, x0, renderer.width);
@@ -101,6 +132,10 @@ void drawRectInPixels(int x0, int y0, int x1, int y1, uint32 color) {
 		}
 	}
 }
+
+/**
+* @brief Отрисовка прямоугольника с использованием координат
+*/
 
 void drawRectInPercent(float x0, float y0, float x1, float y1, uint32 color) {
 	// clamp value between 0 and 100
